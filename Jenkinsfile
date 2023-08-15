@@ -25,11 +25,6 @@ pipeline {
     }
 
     post {
-        always {
-            // Archive test reports or any other artifacts you want to keep
-            archiveArtifacts artifacts: '**/test-reports/*.xml', allowEmptyArchive: true
-        }
-
         success {
             echo 'Unit tests passed! Deploying...'
             // Add deployment steps here, if applicable
