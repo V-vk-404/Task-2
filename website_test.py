@@ -1,23 +1,36 @@
 import unittest
-import requests
+from selenium import webdriver
 
-class TestATGWorldWebsite(unittest.TestCase):
+class WebsiteTest(unittest.TestCase):
+    def setUp(self):
+        # Create a new Chrome browser instance in headless mode
+        print("Initializing Chrome browser...")
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument("--headless")  # Run in headless mode
+        self.driver = webdriver.Chrome(options=chrome_options)
+        print("Chrome browser initialized.")
 
-    def test_website_connection(self):
-        url = "https://atg.world"
-        print(f"Testing website connection to {url}...")
-        
-        response = requests.get(url)
-        
-        # Check if the response status code is 200 (OK)
-        if response.status_code == 200:
-            print(f"Connected to {url} successfully. Status code: {response.status_code}")
+    def test_website_loading(self):
+        print("Starting website loading test...")
+        # Navigate to the atg.world website
+        print("Navigating to atg.world website...")
+        self.driver.get("https://atg.world")
+        print("Website loaded.")
+
+        # Check if the website title contains the expected text
+        expected_title = "Across The Globe (ATG) - Professional and Personal Social Networking"
+        print("Verifying website title...")
+        if expected_title in self.driver.title:
+            print("Website title is as expected.")
         else:
-            print(f"Failed to connect to {url}. Status code: {response.status_code}")
-        
-        # Assert the status code is 200
-        self.assertEqual(response.status_code, 200, f"Test failed: Status code is not 200")
+            self.fail("Website title is not as expected.")
 
-if __name__ == '__main__':
+    def tearDown(self):
+        print("Cleaning up and closing the browser...")
+        # Close the browser after the test
+        self.driver.quit()
+        print("Browser closed.")
+
+if __name__ == "__main__":
+    print("Running the test suite...")
     unittest.main()
-
