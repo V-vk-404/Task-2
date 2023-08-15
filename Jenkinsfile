@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                // Checkout the code from your GitHub repository
-               git branch: 'main', credentialsId: 'Git-new', url: 'https://github.com/V-vk-404/Task-2.git'
-            }
-        }
+        // stage('Checkout') {
+        //     steps {
+        //         // Checkout the code from your GitHub repository
+        //        git branch: 'main', credentialsId: 'Git-new', url: 'https://github.com/V-vk-404/Task-2.git'
+        //     }
+        // }
         
         stage('Install Dependencies') {
             steps {
